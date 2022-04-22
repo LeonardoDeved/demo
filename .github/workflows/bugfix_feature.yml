@@ -1,9 +1,10 @@
-name: Develop pipeline
+name: Bug Fixes and Feature pipeline
 
 on:
   push:
     branches:
-      - "develop"
+      - "bugfix/*"
+      - "feature/*"
     paths-ignore:
       - "LICENSE"
       - "*.md"
@@ -18,8 +19,8 @@ jobs:
         with:
           fetch-depth: 0
 
-#      - name: 2. Set up Snyk client
-#        uses: snyk/actions/setup@master
+      #      - name: 2. Set up Snyk client
+      #        uses: snyk/actions/setup@master
 
       - name: 3. Set up Compile, Build and Test environment
         uses: actions/setup-java@v1
@@ -47,15 +48,6 @@ jobs:
       #      env:
       #        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       #      run: ./librariesAnalysis.sh
-
-      - name: 7. Packaging
-        env:
-          REPOSITORY_URL: ${{ secrets.REPOSITORY_URL }}
-          REPOSITORY_ID: ${{ secrets.REPOSITORY_ID }}
-          CONTRAST_API_KEY: ${{ secrets.CONTRAST_API_KEY }}
-          CONTRAST_SERVICE_KEY: ${{ secrets.CONTRAST_SERVICE_KEY }}
-          CONTRAST_USER_NAME: ${{ secrets.CONTRAST_USER_NAME }}
-        run: ./package.sh
 
       #    - name: 8. Package Analysis - White-box testing (SAST)
       #      env:
